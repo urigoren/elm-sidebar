@@ -3,7 +3,6 @@ import Html.Attributes exposing (..)
 import Platform.Cmd exposing (..)
 import Html.Events exposing (..)
 import String
-import Random
 
 type alias DefaultValues =
   {
@@ -57,9 +56,6 @@ view model = div [] [
 sidebar_width: Bool -> String
 sidebar_width visible = if visible then "250px" else "0px"
 
-icon: String -> Html Msg
-icon s = span [class ("glyphicon glyphicon-"++s)] []
-
 page_header: Page -> Bool -> List(Html Msg)
 page_header page sidebar_visible= let
   closebtn = span [class ("glyphicon glyphicon-menu-left"), onClick MenuClose] []
@@ -79,17 +75,3 @@ page_content pg = case pg of
 -- SUBSCRIPTIONS
 subscriptions : Model -> Sub Msg
 subscriptions model = Sub.none
-
--- HELPER FUNCS
-
-zip : List a -> List b -> List (a,b)
-zip xs ys =
-  case (xs, ys) of
-    ( x :: xBack, y :: yBack ) ->
-        (x,y) :: zip xBack yBack
-
-    (_, _) ->
-        []
-
-send msg v=
-  Random.generate msg (Random.int v v)
